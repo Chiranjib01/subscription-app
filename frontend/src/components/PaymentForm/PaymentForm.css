@@ -1,0 +1,68 @@
+.payment-form {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1f4d91;
+  display: grid;
+  align-items: center;
+  overflow-x: scroll;
+}
+.payment-form .container {
+  margin: 0 auto;
+  background-color: #fff;
+  max-width: 500px;
+  display: flex;
+  border-radius: 10px;
+}
+.StripeElement {
+  min-width: 280px;
+  margin: 20px 0;
+  border: 1px solid #1f4d91;
+  padding: 10px;
+  border-radius: 5px;
+}
+.section-1 {
+  background-color: #fff;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.section-2 {
+  background-color: #f5f5f7;
+  padding: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.section-1 h3 {
+  font-weight: normal;
+  font-size: 22px;
+}
+.section-1 .text {
+  font-size: 15px;
+  color: #7f7f80;
+}
+.section-1 .btn-container button {
+  border: none;
+  background-color: #1f4d91;
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.section-2 h4 {
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.section-2 .content {
+  min-width: 200px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.section-2 .content .item {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  text-transform: capitalize;
+}

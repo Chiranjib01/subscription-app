@@ -1,0 +1,56 @@
+.login {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1e4d90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login main {
+  background-color: #fff;
+  min-width: 300px;
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+.login main h3 {
+  margin: 20px 0;
+  text-align: center;
+}
+.login main .form-group {
+  margin: 10px 0;
+}
+.login main .form-group input[type="email"],
+.login main .form-group input[type="password"] {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+}
+.login main .form-group label {
+  display: inline-block;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+.login main .checkbox {
+  display: flex;
+  gap: 5px;
+}
+.login main .form-group button {
+  width: 100%;
+  padding: 6px 10px;
+  background-color: #1f4c91;
+  color: #fff;
+  border: 1px solid #1e4d91;
+  border-radius: 5px;
+  margin: 10px 0 10px 0;
+  cursor: pointer;
+}
+.login main .form-group button:disabled {
+  background-color: #2c67ba;
+}
+.login main .footer-text {
+  text-align: center;
+}
