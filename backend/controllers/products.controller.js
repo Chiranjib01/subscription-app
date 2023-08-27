@@ -25,7 +25,7 @@ export const subscribe = async (req, res) => {
       },
       expand: ["latest_invoice.payment_intent"],
     });
-    const user = await User.find({ stripeId });
+    const user = await User.find(req.user._id);
     user.subscription = plan;
     const updatedUser = await user.save();
     generateTokenUser(res, updatedUser._id);

@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PUBLIC_KEY } from "../../utils/constants";
 import { Elements } from "@stripe/react-stripe-js";
 import CurrentPlan from "../CurrentPlan/CurrentPlan";
+import { useSelector } from "react-redux";
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
