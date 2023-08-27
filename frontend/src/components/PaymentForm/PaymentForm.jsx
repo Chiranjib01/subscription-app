@@ -21,8 +21,7 @@ const PaymentForm = ({ plan }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: userInfo.name,
-          email: userInfo.email,
+          stripeId: userInfo.stripeId,
           priceId: plan.price_id,
           paymentMethod: paymentMethod.paymentMethod.id,
         }),

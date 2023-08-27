@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import generateTokenUser from "../utils/generateToken.user.js";
+import { stripe } from "../config/stripeConfig.js";
 
 // @method POST /api/users/signup
 export const signUpUser = asyncHandler(async (req, res) => {
@@ -10,10 +11,15 @@ export const signUpUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exists");
   }
+  const customer = await stripe.customers.create({
+    name,
+    email,
+  });
   const user = await User.create({
     name,
     email,
     password,
+    stripeId: customer.id,
   });
   if (user) {
     generateTokenUser(res, user._id);
@@ -21,6 +27,7 @@ export const signUpUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      stripeId: user.stripeId,
     });
   } else {
     res.status(400);
@@ -38,6 +45,7 @@ export const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      stripeId: user.stripeId,
     });
   } else {
     res.status(400);
@@ -63,6 +71,7 @@ export const getUser = asyncHandler(async (req, res) => {
     _id: req._id,
     name: req.name,
     email: req.email,
+    stripeId: req.stripeId,
   };
   res.status(200).json(user);
 });
