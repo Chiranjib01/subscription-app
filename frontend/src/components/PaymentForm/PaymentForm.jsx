@@ -21,9 +21,10 @@ const PaymentForm = ({ plan }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          stripeId: userInfo.stripeId,
+          name: userInfo.name,
+          email: userInfo.email,
           priceId: plan.price_id,
-          paymentMethod,
+          paymentMethod: paymentMethod.paymentMethod.id,
         }),
       });
       if (!resp.ok) {

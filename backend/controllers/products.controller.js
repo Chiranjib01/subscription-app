@@ -2,15 +2,15 @@ import { stripe } from "../config/stripeConfig.js";
 
 export const subscribe = async (req, res) => {
   try {
-    const { stripeId, priceId, paymentMethod } = req.body;
-    console.log("1");
-    const payment = await stripe.paymentMethods.attach(
-      paymentMethod.paymentMethod.id,
-      { customer: stripeId }
-    );
-    console.log("2");
+    const { name, email, priceId, paymentMethod } = req.body;
+    const customer = await stripe.customers.create({
+      name,
+      email,
+      payment_method: paymentMethod,
+      invoice_settings: { default_payment_method: paymentMethod },
+    });
     const subscription = await stripe.subscriptions.create({
-      customer: stripeId,
+      customer: customer.id,
       items: [
         {
           price: priceId,
@@ -22,7 +22,6 @@ export const subscribe = async (req, res) => {
       },
       expand: ["latest_invoice.payment_intent"],
     });
-    console.log("3");
     res.json({
       message: "Subsciption Successfull",
       subscriptionId: subscription.id,
