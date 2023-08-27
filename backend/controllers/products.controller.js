@@ -59,22 +59,19 @@ export const unsubscribe = async (req, res) => {
     const { stripeId, subscriptionId } = req.body;
     // await stripe.subscriptions.cancel(subscriptionId);
     const user = await User.findOne({ stripeId });
-    user.subscription?.active = false;
-    if (user) {
-      const updatedUser = await user.save();
-      generateTokenUser(res, updatedUser._id);
-      return res.json({
-        message: "Subsciption Cancelled",
-        user: {
-          _id: updatedUser._id,
-          name: updatedUser.name,
-          email: updatedUser.email,
-          stripeId: updatedUser.stripeId,
-          subscription: updatedUser.subscription,
-        },
-      });
-    }
-    res.status(400).json({ message: "Error Occured" });
+    user.subscription.active = false;
+    const updatedUser = await user.save();
+    generateTokenUser(res, updatedUser._id);
+    return res.json({
+      message: "Subsciption Cancelled",
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        stripeId: updatedUser.stripeId,
+        subscription: updatedUser.subscription,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
