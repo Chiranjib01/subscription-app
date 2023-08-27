@@ -3,11 +3,17 @@ import { stripe } from "../config/stripeConfig.js";
 export const subscribe = async (req, res) => {
   try {
     const { stripeId, priceId, paymentMethod } = req.body;
+    const payment = await stripe.paymentMethods.attach(paymentMethod, {
+      customer: stripeId,
+    });
+    console.log({ payment });
     const customer = await stripe.customers.update(stripeId, {
       invoice_settings: {
         default_payment_method: paymentMethod,
       },
     });
+    console.log("\n\n");
+    console.log({ customer });
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
       items: [
