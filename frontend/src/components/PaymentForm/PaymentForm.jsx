@@ -1,16 +1,19 @@
 import "./PaymentForm.css";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API_URL } from "../../utils/constants";
 import { setCredentials, setState } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const PaymentForm = ({ plan }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const createSubscription = async () => {
@@ -43,9 +46,9 @@ const PaymentForm = ({ plan }) => {
         return;
       }
       if (localStorage.getItem("userInfo")) {
-        setCredentials({ ...data.user });
+        dispatch(setCredentials(data.user));
       } else {
-        setState({ ...data.user });
+        dispatch(setState(data.user));
       }
       toast.success("Subscription Added", { autoClose: 1000 });
       navigate("/");

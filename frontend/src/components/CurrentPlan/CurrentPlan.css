@@ -63,3 +63,13 @@
   color: #f27171 !important;
   background-color: #eae8e8 !important;
 }
+.not-selected div {
+  text-align: center;
+  margin: 20px;
+}
+.not-selected div a {
+  padding: 6px 10px;
+  color: #000;
+  background-color: #fff;
+  border-radius: 10px;
+}

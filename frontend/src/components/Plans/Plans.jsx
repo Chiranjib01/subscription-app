@@ -1,12 +1,10 @@
 import "./Plans.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { monthlyPlans, yearlyPlans } from "../../utils/plans";
 import PaymentForm from "../PaymentForm/PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PUBLIC_KEY } from "../../utils/constants";
 import { Elements } from "@stripe/react-stripe-js";
-import CurrentPlan from "../CurrentPlan/CurrentPlan";
-import { useSelector } from "react-redux";
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
@@ -15,10 +13,6 @@ const Plans = () => {
   const [isMonthly, setIsMonthly] = useState(true);
   const [plans, setPlans] = useState(monthlyPlans);
   const [selectedPlan, setSelectedPlan] = useState(plans[0]);
-
-  useEffect(() => {
-    if (!isMonthly) setFactor(10);
-  }, []);
 
   return (
     <>

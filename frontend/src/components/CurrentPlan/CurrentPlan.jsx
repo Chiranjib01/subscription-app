@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
 import "./CurrentPlan.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import arrayToString from "../../utils/arrayToString";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { API_URL } from "../../utils/constants";
 import { setCredentials, setState } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const CurrentPlan = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const [currentPlan, setCurrentPlan] = useState(userInfo.subscription);
   var expiryDate = new Date(moment(userInfo.updatedAt).format("MMM DD YYYY"));
@@ -32,9 +34,9 @@ const CurrentPlan = () => {
       }
       const data = await resp.json();
       if (localStorage.getItem("userInfo")) {
-        setCredentials({ ...data.user });
+        dispatch(setCredentials(data.user));
       } else {
-        setState({ ...data.user });
+        dispatch(setState(data.user));
       }
       setCurrentPlan({ ...currentPlan, active: false });
       toast.success("Subscripton Cancelled", { autoClose: 1000 });
@@ -52,15 +54,12 @@ const CurrentPlan = () => {
       } else {
         expiryDate.setFullYear(expiryDate.getFullYear() + 1);
       }
-    } else {
-      // navigate("/choose-plan");
     }
-    console.log(currentPlan);
   }, [userInfo]);
 
   return (
     <div className="current-plan">
-      {currentPlan && (
+      {currentPlan ? (
         <main>
           <div className="plan-details">
             <div className="head">
@@ -103,6 +102,15 @@ const CurrentPlan = () => {
             </div>
           </div>
         </main>
+      ) : (
+        <div className="not-selected">
+          <div style={{ color: "white", fontSize: "18px" }}>
+            You Don&rsquo;t Have An Active Plan
+          </div>
+          <div>
+            <Link to="/choose-plan">Choose One</Link>
+          </div>
+        </div>
       )}
     </div>
   );
