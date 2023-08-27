@@ -31,13 +31,13 @@ const PaymentForm = ({ plan }) => {
         }),
       });
       if (!resp.ok) {
-        toast.error("Payment Unsuccesfull");
+        toast.error("Payment Unsuccesfull", { autoClose: 1000 });
         return;
       }
       const data = await resp.json();
       const confirm = await stripe.confirmCardPayment(data.clientSecret);
       if (confirm.error) {
-        toast.error("Payment Unsuccesfull");
+        toast.error("Payment Unsuccesfull", { autoClose: 1000 });
         return;
       }
       if (localStorage.getItem("userInfo")) {
@@ -45,10 +45,10 @@ const PaymentForm = ({ plan }) => {
       } else {
         setState({ ...data.user });
       }
-      toast.success("Subscription Added");
+      toast.success("Subscription Added", { autoClose: 1000 });
       navigate("/");
     } catch (error) {
-      toast.error("Something Went Wrong");
+      toast.error("Something Went Wrong", { autoClose: 1000 });
     }
   };
 

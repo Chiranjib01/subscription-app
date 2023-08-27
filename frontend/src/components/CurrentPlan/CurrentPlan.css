@@ -15,6 +15,9 @@
   padding: 20px;
   border-radius: 20px;
 }
+.current-plan main .plan-details .plan-name {
+  text-transform: capitalize;
+}
 .current-plan main .plan-details .head {
   display: flex;
   justify-content: space-between;
@@ -35,6 +38,7 @@
 }
 .current-plan main .plan-details .devices {
   color: #cbcbcb;
+  text-transform: capitalize;
 }
 .current-plan main .plan-details .price {
   margin: 10px 0;
@@ -54,4 +58,8 @@
   border-radius: 5px;
   font-size: 13px;
   padding: 2px 5px;
+}
+.red {
+  color: #f27171 !important;
+  background-color: #eae8e8 !important;
 }
