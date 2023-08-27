@@ -3,6 +3,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API_URL } from "../../utils/constants";
+import { setCredentials, setState } from "../../redux/authSlice";
 
 const PaymentForm = ({ plan }) => {
   const stripe = useStripe();
@@ -24,6 +25,7 @@ const PaymentForm = ({ plan }) => {
           stripeId: userInfo.stripeId,
           priceId: plan.price_id,
           paymentMethod: paymentMethod.paymentMethod.id,
+          plan,
         }),
       });
       if (!resp.ok) {
@@ -35,6 +37,11 @@ const PaymentForm = ({ plan }) => {
       if (confirm.error) {
         toast.error("Payment Unsuccesfull");
         return;
+      }
+      if (localStorage.getItem("userInfo")) {
+        setCredentials({ ...data.user });
+      } else {
+        setState({ ...data.user });
       }
       toast.success("Subscription Added");
     } catch (error) {

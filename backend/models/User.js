@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     stripeId: { type: String, required: true },
+    subscription: { type: Object, default: null },
   },
   { timestamps: true }
 );
