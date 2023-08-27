@@ -6,6 +6,7 @@ import arrayToString from "../../utils/arrayToString";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { API_URL } from "../../utils/constants";
+import { setCredentials, setState } from "../../redux/authSlice";
 
 const CurrentPlan = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const CurrentPlan = () => {
       } else {
         setState({ ...data.user });
       }
+      setCurrentPlan({ ...currentPlan, active: false });
       toast.success("Subscripton Cancelled", { autoClose: 1000 });
     } catch (error) {
       toast.error("Something went wrong", { autoClose: 1000 });
@@ -53,6 +55,7 @@ const CurrentPlan = () => {
     } else {
       // navigate("/choose-plan");
     }
+    console.log(currentPlan);
   }, [userInfo]);
 
   return (

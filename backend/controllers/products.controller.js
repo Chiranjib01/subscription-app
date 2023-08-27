@@ -60,7 +60,10 @@ export const unsubscribe = async (req, res) => {
     // await stripe.subscriptions.cancel(subscriptionId);
     const user = await User.findOne({ stripeId });
     if (user) {
-      user.subscription.active = false;
+      user.subscription = {
+        active: false,
+        ...user.subscription,
+      };
       const updatedUser = await user.save();
       generateTokenUser(res, updatedUser._id);
       return res.json({

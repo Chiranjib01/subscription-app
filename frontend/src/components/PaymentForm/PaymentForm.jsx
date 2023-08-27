@@ -11,8 +11,10 @@ const PaymentForm = ({ plan }) => {
   const elements = useElements();
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const createSubscription = async () => {
+    setLoading(true);
     try {
       const paymentMethod = await stripe.createPaymentMethod({
         type: "card",
@@ -47,7 +49,9 @@ const PaymentForm = ({ plan }) => {
       }
       toast.success("Subscription Added", { autoClose: 1000 });
       navigate("/");
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       toast.error("Something Went Wrong", { autoClose: 1000 });
     }
   };
@@ -65,7 +69,7 @@ const PaymentForm = ({ plan }) => {
           </div>
           <div className="btn-container">
             <button type="button" onClick={createSubscription}>
-              Confirm Payment
+              {loading ? "Processing..." : "Confirm Payment"}
             </button>
           </div>
         </section>
