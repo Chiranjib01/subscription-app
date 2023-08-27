@@ -31,7 +31,7 @@ export const subscribe = async (req, res) => {
       user.subscription = plan;
       const updatedUser = await user.save();
       generateTokenUser(res, updatedUser._id);
-      res.json({
+      return res.json({
         message: "Subsciption Successfull",
         subscriptionId: subscription.id,
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
@@ -44,7 +44,7 @@ export const subscribe = async (req, res) => {
         },
       });
     }
-    res.status(400).json({ message: "Error" });
+    res.status(400).json({ message: "Error Occured" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });

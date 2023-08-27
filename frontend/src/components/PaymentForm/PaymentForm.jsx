@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API_URL } from "../../utils/constants";
 import { setCredentials, setState } from "../../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const PaymentForm = ({ plan }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const createSubscription = async () => {
     try {
@@ -44,6 +46,7 @@ const PaymentForm = ({ plan }) => {
         setState({ ...data.user });
       }
       toast.success("Subscription Added");
+      navigate("/");
     } catch (error) {
       toast.error("Something Went Wrong");
     }

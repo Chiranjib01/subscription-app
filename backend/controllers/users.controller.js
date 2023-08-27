@@ -28,6 +28,7 @@ export const signUpUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       stripeId: user.stripeId,
+      subscription: user.subscription,
     });
   } else {
     res.status(400);
@@ -46,6 +47,7 @@ export const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       stripeId: user.stripeId,
+      subscription: user.subscription,
     });
   } else {
     res.status(400);
@@ -72,6 +74,7 @@ export const getUser = asyncHandler(async (req, res) => {
     name: req.name,
     email: req.email,
     stripeId: req.stripeId,
+    subscription: req.subscription,
   };
   res.status(200).json(user);
 });

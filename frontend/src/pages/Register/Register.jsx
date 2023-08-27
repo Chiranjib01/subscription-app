@@ -41,7 +41,11 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setChecked(false);
-      navigate("/");
+      if (res.subscription) {
+        navigate("/");
+      } else {
+        navigate("/choose-plan");
+      }
     } catch (err) {
       toast.error(err?.data?.message || err.error, { autoClose: 1000 });
     }

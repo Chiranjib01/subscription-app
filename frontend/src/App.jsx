@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Plans from "./components/Plans/Plans";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/register" element={<Register />} index={true} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/" element={<Home />} index={true} />
+            <Route path="/choose-plan" element={<Plans />} index={true} />
           </Route>
         </Routes>
       </Router>

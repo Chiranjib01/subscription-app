@@ -1,9 +1,21 @@
+import { useSelector } from "react-redux";
 import "./CurrentPlan.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CurrentPlan = () => {
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [currentPlan, setCurrentPlan] = useState(userInfo.subscription);
+  useEffect(() => {
+    if (!userInfo) navigate("/login");
+    // else if (!userInfo.subscription) navigate("/choose-plan");
+  }, [userInfo]);
+  console.log(userInfo);
   return (
     <div className="current-plan">
-      <main>
+      {JSON.stringify(currentPlan)}
+      {/* <main>
         <div className="plan-details">
           <div className="head">
             <div>
@@ -23,7 +35,7 @@ const CurrentPlan = () => {
             </div>
           </div>
         </div>
-      </main>
+      </main> */}
     </div>
   );
 };
