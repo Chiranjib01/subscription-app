@@ -57,7 +57,7 @@ export const subscribe = async (req, res) => {
 export const unsubscribe = async (req, res) => {
   try {
     const { stripeId, subscriptionId } = req.body;
-    await stripe.subscriptions.cancel(subscriptionId);
+    // await stripe.subscriptions.cancel(subscriptionId);
     const user = await User.findOne({ stripeId });
     if (user) {
       user.subscription.active = false;

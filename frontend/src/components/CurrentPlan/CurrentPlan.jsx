@@ -51,7 +51,7 @@ const CurrentPlan = () => {
         expiryDate.setFullYear(expiryDate.getFullYear() + 1);
       }
     } else {
-      navigate("/choose-plan");
+      // navigate("/choose-plan");
     }
   }, [userInfo]);
 
