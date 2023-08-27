@@ -25,22 +25,26 @@ export const subscribe = async (req, res) => {
       },
       expand: ["latest_invoice.payment_intent"],
     });
-    const user = await User.find(req.user._id);
-    user.subscription = plan;
-    const updatedUser = await user.save();
-    generateTokenUser(res, updatedUser._id);
-    res.json({
-      message: "Subsciption Successfull",
-      subscriptionId: subscription.id,
-      clientSecret: subscription.latest_invoice.payment_intent.client_secret,
-      user: {
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        stripeId: updatedUser.stripeId,
-        subscription: updatedUser.subscription,
-      },
-    });
+    const user = await User.find({ stripeId: stripeId });
+    console.log(user);
+    if (user) {
+      user.subscription = plan;
+      const updatedUser = await user.save();
+      generateTokenUser(res, updatedUser._id);
+      res.json({
+        message: "Subsciption Successfull",
+        subscriptionId: subscription.id,
+        clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+        user: {
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          stripeId: updatedUser.stripeId,
+          subscription: updatedUser.subscription,
+        },
+      });
+    }
+    res.status(400).json({ message: "Error" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
