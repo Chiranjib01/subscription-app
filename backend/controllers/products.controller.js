@@ -2,7 +2,7 @@ import { stripe } from "../config/stripeConfig.js";
 
 export const subscribe = async (req, res) => {
   try {
-    const { stripeId, priceId, paymentMethod } = JSON.parse(req.body);
+    const { stripeId, priceId, paymentMethod } = req.body;
     console.log("1");
     const payment = await stripe.paymentMethods.attach(
       paymentMethod.paymentMethod.id,
