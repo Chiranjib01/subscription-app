@@ -1,5 +1,6 @@
 import { stripe } from "../config/stripeConfig.js";
 import User from "../models/User.js";
+import generateTokenUser from "../utils/generateToken.user.js";
 
 export const subscribe = async (req, res) => {
   try {
@@ -26,7 +27,6 @@ export const subscribe = async (req, res) => {
       expand: ["latest_invoice.payment_intent"],
     });
     const user = await User.findOne({ stripeId });
-    console.log(user);
     if (user) {
       user.subscription = plan;
       const updatedUser = await user.save();
