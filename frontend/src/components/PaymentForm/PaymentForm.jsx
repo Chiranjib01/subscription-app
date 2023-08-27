@@ -11,6 +11,10 @@ const PaymentForm = ({ plan }) => {
 
   const createSubscription = async () => {
     try {
+      const paymentMethod = await stripe.createPaymentMethod({
+        type: "card",
+        card: elements.getElement("card"),
+      });
       const resp = await fetch(`${API_URL}/api/products/subscribe`, {
         method: "POST",
         headers: {
@@ -19,6 +23,7 @@ const PaymentForm = ({ plan }) => {
         body: JSON.stringify({
           stripeId: userInfo.stripeId,
           priceId: plan.price_id,
+          paymentMethod,
         }),
       });
       if (!resp.ok) {

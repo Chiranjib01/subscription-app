@@ -2,11 +2,13 @@ import { stripe } from "../config/stripeConfig.js";
 
 export const subscribe = async (req, res) => {
   try {
-    const { stripeId, priceId, paymentMethod } = req.body;
+    const { stripeId, priceId, paymentMethod } = JSON.parse(req.body);
+    console.log("1");
     const payment = await stripe.paymentMethods.attach(
       paymentMethod.paymentMethod.id,
       { customer: stripeId }
     );
+    console.log("2");
     const subscription = await stripe.subscriptions.create({
       customer: stripeId,
       items: [
@@ -20,6 +22,7 @@ export const subscribe = async (req, res) => {
       },
       expand: ["latest_invoice.payment_intent"],
     });
+    console.log("3");
     res.json({
       message: "Subsciption Successfull",
       subscriptionId: subscription.id,
@@ -27,6 +30,6 @@ export const subscribe = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
