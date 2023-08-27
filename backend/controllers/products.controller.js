@@ -4,7 +4,6 @@ export const subscribe = async (req, res) => {
   try {
     const { stripeId, priceId, paymentMethod } = req.body;
     const customer = await stripe.customers.update(stripeId, {
-      payment_method: paymentMethod,
       invoice_settings: {
         default_payment_method: paymentMethod,
       },
