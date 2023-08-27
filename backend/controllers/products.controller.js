@@ -22,6 +22,7 @@ export const subscribe = async (req, res) => {
       clientSecret: subscription.latest_invoice.payment_intent.client_secret,
     });
   } catch (error) {
+    console.log(error);
     res.json({ message: "Internal Server Error" });
   }
 };
